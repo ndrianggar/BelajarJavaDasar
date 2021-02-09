@@ -10,7 +10,7 @@ public class Main {
         System.out.println("=============awal penjelasan");
         a_bits = String.format("%8s", Integer.toBinaryString(a)).replace(' ', '0'); // kelas helper format (untuk menampilkan 8 karakter)
         System.out.printf("%s = %d \n", a_bits, a);
-//       a_bits = String.format() // ini maksdnya sama seperti system.out.printf
+//       a_bits = String.format() // ini maksdnya sama seperti system.out.printf dan tidak dicetak ke konsol, melainkan dicetak ke variable
 
 
         // Operator Bitwise SHIFT RIGHT <<
