@@ -9,7 +9,7 @@ public class Main {
         int[][] matrix_a = {
                 {1, 2, 3},
                 {4, 5, 6},
-           /*     {7, 8, 9}*/
+                {7, 8, 9}
         };
 
 
@@ -18,6 +18,17 @@ public class Main {
                 {14,15,16},
                 {17,18,19}
         };
+
+        int[][] matrix_kali1 = {
+                {3,4},
+                {5,6}
+        };
+        int[][] matrix_kali2 = {
+                {1,2},
+                {2,9},
+                {5,4}
+        };
+
 
 
         printArray(matrix_a);
@@ -40,6 +51,7 @@ public class Main {
 /*bisa dengan print seperti ini
     printArray(hasiltambah);*/
     printArray(tambah(matrix_a,matrix_b));
+    printArray(perkalian(matrix_kali1,matrix_kali2));
         Scanner inputUser = new Scanner(System.in);
 
         while (true) {
@@ -52,12 +64,12 @@ public class Main {
             for(int i=0; i<row; i++){
                 System.out.print("[");
                 for (int j=0; j<column; j++){
-                    array_1[i][j] = inputUser.nextInt();
-//                    System.out.print(i+j);
+//                    array_1[i][j] = inputUser.nextInt();
+                  System.out.print(i+j);
                     if(j < (column -1 )){
                         System.out.print(",");
                     }else{
-                        System.out.print("]");
+                        System.out.println("]");
                     }
 
                 }
@@ -91,6 +103,34 @@ public class Main {
         return hasil;
     }
 
+    private static int[][] perkalian(int[][] matrix_1, int[][] matrix_2){
+    int baris_a = matrix_1.length;
+    int kolom_a = matrix_2.length;
+
+        int baris_b = matrix_1.length;
+        int kolom_b = matrix_2.length;
+    int buffer;
+    // jika a.b maka jumlah baris mengikuti matrix a.
+        // kolom mengikuti matrix b.
+    int[][] hasil = new int[baris_a][kolom_b];
+
+    if(baris_a == baris_b && kolom_a == kolom_b) {
+        for (int i = 0; i < baris_a; i++) {
+            for (int j = 0; j < kolom_b; j++) {
+                buffer = 0;
+                for (int k = 0; k < kolom_a; k++) {
+                    buffer += matrix_1[i][k] * matrix_2[k][j];
+                }
+                hasil[i][j] = buffer;
+            }
+        }
+    }else {
+        System.out.println("Perkalian batal");
+    }
+
+    return hasil;
+
+    }
 
     private static void printArray(int[][] dataArray) {
 
