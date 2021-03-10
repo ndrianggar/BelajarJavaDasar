@@ -10,14 +10,16 @@ import java.util.StringTokenizer;
 public class Main {
     public static void main(String[] args) throws IOException {
 
+        // inisiasi inputan
         Scanner terminalInput = new Scanner(System.in);
         String pilihanUser;
 
-        Boolean isLanjutkan = true;
+        Boolean isLanjutkan = true; 
 
+        // buat menu
         while (isLanjutkan) {
             clearScreen();
-            System.out.println("Database Perpustakaan\n");
+            System.out.println(" Database Perpustakaan\n");
             System.out.println("1.\tLihat seluruh data buku");
             System.out.println("2.\tCari data buku");
             System.out.println("3.\tTambah data buku");
@@ -60,30 +62,83 @@ public class Main {
 
     }
 
-    private static void cariData(){
+    private static void cariData() throws IOException {
 
         // Mengecek database ada atau tidak
         try {
             File file = new File("database.txt");
-
         }catch (Exception e){
             System.err.println("Database tidak ditemukan");
             return;
         }
 
         // Ambil Keywoard dari user
-            Scanner terminalInput = new Scanner(System.in);
+        Scanner terminalInput = new Scanner(System.in);
         System.out.print("Masukkan kata kunci untuk mencari buku: ");
-        String cariString = terminalInput.next();
+        // jika pakai next hanya mengambil 1 kata saja
+        // sedangkan nextline untuk mengambil 2 kata
+        String cariString = terminalInput.nextLine();
         System.out.println(cariString);
 
-        String[] keywords = cariString.split("\\s");
-        System.out.println(keywords[0]);
+
+        //System.out.println(cariString.split("\\s+"));
+        // regex: "\\s+" = reguler ekspression untuk mengambil white space
+        String[] keywords = cariString.split("\\s+");
 
 
 
         // Cek Keywoard di database
+        cekBukuDiDatabase(keywords);
 
+
+    }
+
+    private static void cekBukuDiDatabase(String[] keywords) throws IOException{
+
+        // cek database
+        FileReader fileInput = new FileReader("database.txt");
+        BufferedReader bufferInput = new BufferedReader(fileInput);
+
+        // mengecek data input dan mengembalikan apa yang diinput
+        String data = bufferInput.readLine();
+        Boolean isExist;
+        int noData =0;
+        //looping data didatabase
+
+
+        System.out.println("\n| No |\tTahun |\tPenulis              |\tPenerbit       |\tJudul Buku ");
+        System.out.println("---------------------------------------------------------------------------");
+
+
+        while(data !=null ){
+
+            isExist = true;
+            // keywords didalam baris
+
+            // untuk pengujian
+//            System.out.println(data);
+//            System.out.println(Arrays.toString(keywords));
+
+            for(String keyword:keywords){
+                isExist = isExist && data.toLowerCase().contains(keyword.toLowerCase());
+            }
+
+
+            if(isExist){
+                StringTokenizer stringToken = new StringTokenizer(data, ",");
+                noData++;
+                stringToken.nextToken();
+                System.out.printf("| %2d ", noData);
+                System.out.printf("|\t%4s  ", stringToken.nextToken());
+                System.out.printf("|\t%-20s ", stringToken.nextToken());
+                System.out.printf("|\t%-14s ", stringToken.nextToken());
+                System.out.printf("|\t%s", stringToken.nextToken());
+                System.out.print("\n");
+                data = bufferInput.readLine();
+            }
+            data = bufferInput.readLine();
+        }
+        System.out.println("---------------------------------------------------------------------------");
 
     }
 
@@ -92,6 +147,7 @@ public class Main {
         FileReader fileInput;
         BufferedReader bufferInput;
 
+        // mengecek database
         try {
             fileInput = new FileReader("database.txt");
             bufferInput = new BufferedReader(fileInput);
@@ -101,15 +157,14 @@ public class Main {
             return;
         }
 
-        System.out.println("\n| No |\tTahun |\tPenulis              |\tPenerbit       |\tJudul Buku ");
-        System.out.println("---------------------------------------------------------------------------");
 
 
         String data = bufferInput.readLine();
 //        System.out.println(data); untuk cek database
 
         int noData =0;
-
+        System.out.println("\n| No |\tTahun |\tPenulis              |\tPenerbit       |\tJudul Buku ");
+        System.out.println("---------------------------------------------------------------------------");
         while (data !=null) {
 
             StringTokenizer stringToken = new StringTokenizer(data, ",");
@@ -123,7 +178,6 @@ public class Main {
             System.out.print("\n");
 
            data = bufferInput.readLine();
-
         }
         System.out.println("---------------------------------------------------------------------------");
 
