@@ -134,7 +134,7 @@ public class Main {
                 System.out.printf("|\t%-14s ", stringToken.nextToken());
                 System.out.printf("|\t%s", stringToken.nextToken());
                 System.out.print("\n");
-                data = bufferInput.readLine();
+//                data = bufferInput.readLine();
             }
             data = bufferInput.readLine();
         }
