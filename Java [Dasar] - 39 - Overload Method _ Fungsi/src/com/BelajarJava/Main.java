@@ -1,5 +1,16 @@
 package com.BelajarJava;
 
+
+/*
+       Overload Method ialah membuat fungsi berulang dengan type data yang dinginnkan
+       formatnya : accesModifier static(instanclass) typeData
+       public static double tambah/kali/bagi (Tipe data Paramater1 & 2){
+                   
+       }
+       
+
+
+*/
 public class Main {
     public static void main(String[] args){
 
